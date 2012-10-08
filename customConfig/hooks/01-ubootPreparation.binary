@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#
+# prepare kernel & initramfs for u-boot
+#
+
+cd $WORKPATH/binary
+
+mkimage -A arm -O linux -T kernel  -C none -a 0x00008000 -e 0x00008000 -n Linux-omap -d boot/vmlinuz-*-omap uImage
+mkimage -A arm -O linux -T ramdisk -C gzip -a 0x00000000 -e 0x00000000 -n initramfs-omap -d boot/initrd.img-*-omap uInitrd
+
+cd boot
+ln -s ../uImage uImage
+ln -s ../uInitrd uInitrd 

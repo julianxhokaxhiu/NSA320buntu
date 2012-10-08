@@ -1,0 +1,56 @@
+#! /bin/sh
+set -e
+
+rm -rf config
+
+OPTS=
+
+if [ -n "$APT_HTTP_PROXY" ]; then
+	OPTS="${OPTS:+$OPTS }--apt-http-proxy $APT_HTTP_PROXY"
+fi
+if [ -n "$APT_FTP_PROXY" ]; then
+	OPTS="${OPTS:+$OPTS }--apt-ftp-proxy $APT_FTP_PROXY"
+fi
+
+if [ -n "$SDK_CHROOTSHELL" ]; then
+	OPTS="${OPTS:+$OPTS } --interactive shell"
+fi
+
+if [ -n "$SDK_EXT2ROOTFS" ]; then
+	OPTS="${OPTS:+$OPTS } --chroot-filesystem ext2"
+fi
+
+
+#lb config 
+#--apt-indices none 
+#--gzip-options '--best --rsyncable' 
+
+#	--debootstrap-options "----include=apt-transport-https gnupg initramfs-tools" \
+
+lb config noauto \
+	--mode ubuntu \
+	--distribution precise \
+	--architecture armel \
+	--parent-archive-areas "main restricted universe multiverse" \
+	--binary-images tar \
+	--binary-filesystem ext3 \
+	--bootloader "" \
+	--memtest none \
+	--source false \
+	--cache false \
+	--firmware-chroot false \
+	--initsystem none \
+	--initramfs none \
+	--initramfs-compression lzma \
+	--security true \
+	--iso-application XBMCbuntu \
+	--iso-volume XBMCbuntu \
+	--iso-publisher http://xbmc.org \
+	--checksums none \
+	--chroot-filesystem none \
+	--bootstrap-qemu-arch armel \
+	--bootstrap-qemu-static /usr/bin/qemu-arm-static \
+	$OPTS
+
+# Copy additional config files to config tree
+cp -R customConfig/* config

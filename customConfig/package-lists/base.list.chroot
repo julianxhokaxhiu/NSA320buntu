@@ -1,0 +1,19 @@
+whois klibc-utils
+openssh-server
+less nano language-pack-en 
+hfsprogs
+bzip2 locales ntfs-3g dosfstools unzip curl wget
+alsa-utils 
+pm-utils psmisc
+fakeroot
+parted
+python-apt
+pkg-config
+lm-sensors
+pmount
+genext2fs
+upower
+udisks
+python-software-properties
+policykit-desktop-privileges
+
