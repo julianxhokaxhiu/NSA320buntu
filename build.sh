@@ -199,7 +199,7 @@ cd $THISDIR
 #
 # Move binary file from workarea
 #
-for BINARY in $WORKPATH/binary-tar.tar.xz; do
+for BINARY in $WORKPATH/binary-tar.* ; do
 	[ -e "$BINARY" ] || continue
 	chmod 666 "$BINARY"
 	mv "$BINARY" .
